@@ -1,0 +1,280 @@
+{
+  "name": "[TOOL] Add weights for day",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "tabName"
+            },
+            {
+              "name": "day"
+            },
+            {
+              "name": "weights"
+            },
+            {
+              "name": "sheetId"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        192,
+        0
+      ],
+      "id": "e798b8a9-670c-4e57-a2d6-03ea0dbaf15c",
+      "name": "Start"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $('Start').item.json.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "={{ $('Start').item.json.tabName }}",
+          "mode": "name"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "day",
+              "lookupValue": "={{ $('Start').item.json.day }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        432,
+        0
+      ],
+      "id": "1e0e94b4-0980-4d9b-8be7-71b6c0089de0",
+      "name": "Row",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "J0v5eGYbQ49Y33Is",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "bef8f997-54be-408e-b694-7f50c6a7dc8b",
+              "name": "newWeights",
+              "value": "={{ $('Row').item.json.weights ? $('Row').item.json.weights + \"\\n\" + $('Start').item.json.weights : $('Start').item.json.weights }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        672,
+        0
+      ],
+      "id": "f87bc004-15e8-4c26-bdbd-28a28e5ef35b",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $('Start').item.json.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "={{ $('Start').item.json.tabName }}",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "day": "={{ $json.day }}",
+            "weights": "={{ $json.newWeights }}"
+          },
+          "matchingColumns": [
+            "day"
+          ],
+          "schema": [
+            {
+              "id": "day",
+              "displayName": "day",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "warmUp",
+              "displayName": "warmUp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "warmUpExercises",
+              "displayName": "warmUpExercises",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "mainRoutine",
+              "displayName": "mainRoutine",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "finished",
+              "displayName": "finished",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "feedback",
+              "displayName": "feedback",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "weights",
+              "displayName": "weights",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        928,
+        0
+      ],
+      "id": "d55f9c27-7dca-401b-a672-03ed8c83d551",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "J0v5eGYbQ49Y33Is",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Row": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "f0b8f590-9206-41d9-a684-18d4d7424271",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "35eeb1559ddbb34785d751ad6f811896d5950bf49657b92992f98b15437ded87"
+  },
+  "id": "M59CFskgjsRCvSfl",
+  "tags": [
+    {
+      "updatedAt": "2025-12-29T19:20:45.420Z",
+      "createdAt": "2025-12-29T19:20:45.420Z",
+      "id": "Kx3RU96jLGoJfyhT",
+      "name": "tool"
+    },
+    {
+      "updatedAt": "2025-12-29T19:20:45.402Z",
+      "createdAt": "2025-12-29T19:20:45.402Z",
+      "id": "qGDdykYm74MmqAaH",
+      "name": "current"
+    }
+  ]
+}

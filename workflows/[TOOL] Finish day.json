@@ -1,0 +1,231 @@
+{
+  "name": "[TOOL] Finish day",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "tabName"
+            },
+            {
+              "name": "day"
+            },
+            {
+              "name": "sheetId"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        176,
+        0
+      ],
+      "id": "5ed6f08f-e5f2-4f2a-98be-e9df542512a3",
+      "name": "Start"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $('Start').item.json.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "={{ $('Start').item.json.tabName }}",
+          "mode": "name"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "day",
+              "lookupValue": "={{ $('Start').item.json.day }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        416,
+        0
+      ],
+      "id": "0caa4243-9e97-491c-a8b9-0c96e35d0c67",
+      "name": "Row",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "J0v5eGYbQ49Y33Is",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $('Start').item.json.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "={{ $('Start').item.json.tabName }}",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "finished": "true",
+            "day": "={{ $json.day }}"
+          },
+          "matchingColumns": [
+            "day"
+          ],
+          "schema": [
+            {
+              "id": "day",
+              "displayName": "day",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "warmUp",
+              "displayName": "warmUp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "warmUpExercises",
+              "displayName": "warmUpExercises",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "mainRoutine",
+              "displayName": "mainRoutine",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "finished",
+              "displayName": "finished",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "feedback",
+              "displayName": "feedback",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        656,
+        0
+      ],
+      "id": "26f1ebb9-2540-442b-bbbb-0472a7c5a1c7",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "J0v5eGYbQ49Y33Is",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Row": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "f664858a-c0c7-4b0e-a289-92621f441eb5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "35eeb1559ddbb34785d751ad6f811896d5950bf49657b92992f98b15437ded87"
+  },
+  "id": "mMHlvoIek6QwDklg",
+  "tags": [
+    {
+      "updatedAt": "2025-12-29T19:20:45.420Z",
+      "createdAt": "2025-12-29T19:20:45.420Z",
+      "id": "Kx3RU96jLGoJfyhT",
+      "name": "tool"
+    },
+    {
+      "updatedAt": "2025-12-29T19:20:45.402Z",
+      "createdAt": "2025-12-29T19:20:45.402Z",
+      "id": "qGDdykYm74MmqAaH",
+      "name": "current"
+    }
+  ]
+}

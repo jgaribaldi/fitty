@@ -1,0 +1,132 @@
+{
+  "name": "[TOOL] Append day to routine",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $('Start').item.json.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "={{ $('Start').item.json.tabName }}"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        720,
+        0
+      ],
+      "id": "8e2a1f5c-0b46-48e6-bb70-1f39bfe51c56",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "J0v5eGYbQ49Y33Is",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "tabName"
+            },
+            {
+              "name": "day",
+              "type": "object"
+            },
+            {
+              "name": "sheetId"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        176,
+        0
+      ],
+      "id": "f5532c06-9abd-405b-8186-1515b30a06dc",
+      "name": "Start"
+    },
+    {
+      "parameters": {
+        "jsCode": "const result = {\n  day: $input.first().json.day.day,\n  warmUp: $input.first().json.day.warm_up.rounds + \" rounds\",\n  warmUpExercises: $input.first().json.day.warm_up.exercises.join(\"\\n\"),\n  mainRoutine: $input.first().json.day.main_routine.join(\"\\n\"),\n  finished: false,\n  feedback: \"\",\n  weights: \"\",\n};\n\nreturn [{ json: result }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        448,
+        0
+      ],
+      "id": "c196abde-aeb1-439c-a2c3-e5e400d43417",
+      "name": "Routine"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Routine",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Routine": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "e47f304c-e343-4d97-87c8-858bd98ecf2e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "35eeb1559ddbb34785d751ad6f811896d5950bf49657b92992f98b15437ded87"
+  },
+  "id": "iqmucRbWK7CoenE4",
+  "tags": [
+    {
+      "updatedAt": "2025-12-29T19:20:45.402Z",
+      "createdAt": "2025-12-29T19:20:45.402Z",
+      "id": "qGDdykYm74MmqAaH",
+      "name": "current"
+    },
+    {
+      "updatedAt": "2025-12-29T19:20:45.420Z",
+      "createdAt": "2025-12-29T19:20:45.420Z",
+      "id": "Kx3RU96jLGoJfyhT",
+      "name": "tool"
+    }
+  ]
+}

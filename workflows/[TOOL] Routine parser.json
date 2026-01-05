@@ -1,0 +1,140 @@
+{
+  "name": "[TOOL] Routine parser",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Analiza el texto:\n\n{{ $('Start').item.json.text}}\n\nDime cuáles son los ejercicios de la rutina día por día. Incluir todos los días en la salida (generar un json object para cada día). Hay algunos ejercicios que corresponden a la \"entrada en calor\", estos ejercicios tienen la cantidad de rondas indicada en la línea superior y se separan del resto con una linea en blanco. A veces la entrada en calor puede estar separada por una línea en blanco y no decir la cantidad de rondas: en ese caso es una ronda",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "0c083a03-c287-45f6-b3fc-837217a16b63",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5.1",
+          "mode": "list",
+          "cachedResultName": "gpt-5.1"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        64,
+        208
+      ],
+      "id": "f10918cb-f427-4b53-b5ad-b061adafc1b5",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "L4fWk38iriTrwSIu",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "[\n\t{\n\t\t\"day\": \"Dia 1\",\n\t\t\"warm_up\": {\n\t\t\t\"rounds\": 3,\n\t\t\t\"exercises\": [\"ejercicio 1\", \"ejercicio 2\", \"ejercicio 3\"]\t\n\t\t},\n\t\t\"main_routine\": [\"ejercicio 22\", \"ejercicio 44\", \"ejercicio 31\"]\n\t},\n\t{\n\t\t\"day\": \"Dia 2\",\n\t\t\"warm_up\": {\n\t\t\t\"rounds\": 2,\n\t\t\t\"exercises\": [\"ejercicio 1\", \"ejercicio 2\", \"ejercicio 3\"]\t\n\t\t},\n\t\t\"main_routine\": [\"ejercicio 1\", \"ejercicio 2\", \"ejercicio 3\"]\n\t}\n]"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        384,
+        208
+      ],
+      "id": "f65796c4-a1ed-40f6-97c0-bf68e39a87ff",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "text"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "623524ed-5e35-4aee-8046-195f901ce0f1",
+      "name": "Start"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "76ae09bd-0a9d-4274-9e81-6a6a3ec62f1a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "35eeb1559ddbb34785d751ad6f811896d5950bf49657b92992f98b15437ded87"
+  },
+  "id": "vs3loQ80CogkN0AY",
+  "tags": [
+    {
+      "updatedAt": "2025-12-29T19:20:45.402Z",
+      "createdAt": "2025-12-29T19:20:45.402Z",
+      "id": "qGDdykYm74MmqAaH",
+      "name": "current"
+    },
+    {
+      "updatedAt": "2025-12-29T19:20:45.420Z",
+      "createdAt": "2025-12-29T19:20:45.420Z",
+      "id": "Kx3RU96jLGoJfyhT",
+      "name": "tool"
+    }
+  ]
+}

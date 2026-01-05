@@ -1,0 +1,108 @@
+{
+  "name": "Get assistant prompt",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "b7fb8ac7-6751-4d00-9ce4-d7dd8cbe95e4",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "get",
+        "owner": {
+          "__rl": true,
+          "value": "jgaribaldi",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "fitty",
+          "mode": "name"
+        },
+        "filePath": "assistant_prompt.txt",
+        "additionalParameters": {}
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "bb040938-e737-4738-9954-7d78899c67ed",
+      "name": "Get prompt",
+      "webhookId": "5e3b509a-32ba-4585-ae2d-8c8e112d838d",
+      "credentials": {
+        "githubApi": {
+          "id": "gV38xiePNSf9nwv9",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "/data/assistant_prompt.txt",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1.1,
+      "position": [
+        416,
+        0
+      ],
+      "id": "398db477-bafc-4369-99d2-dbb17cf8f37d",
+      "name": "Write prompt to disk"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get prompt": {
+      "main": [
+        [
+          {
+            "node": "Write prompt to disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "c57a633a-8275-44f9-bd65-ce423430415e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "35eeb1559ddbb34785d751ad6f811896d5950bf49657b92992f98b15437ded87"
+  },
+  "id": "nwoht55YyEBcmkEV",
+  "tags": [
+    {
+      "updatedAt": "2025-12-29T19:20:45.402Z",
+      "createdAt": "2025-12-29T19:20:45.402Z",
+      "id": "qGDdykYm74MmqAaH",
+      "name": "current"
+    }
+  ]
+}
