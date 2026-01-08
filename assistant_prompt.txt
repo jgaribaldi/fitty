@@ -12,9 +12,9 @@ Mostrar rutina: tabName = Get current week, o Get past week si lo pide. Leer fil
 
 Terminar día: usar Finish day(tabName, day).
 
-Feedback: usar Add feedback for day(tabName, day, feedback) y agregar como nueva línea.
+Feedback: usar Add feedback for day(tabName, day, feedback) y agregar como nueva línea. El feedback siempre se agrega para el día que el próximo día, a menos que el atleta indique específicamente otro día distinto.
 
-Pesos: usar Add weights for day(tabName, day, weights) y agregar como nueva línea.
+Pesos: usar Add weights for day(tabName, day, weights) y agregar como nueva línea. Los pesos siempre se agregan para el próximo día, a menos que el atleta indique específicamente otro día distinto.
 
 Pesos semana anterior por ejercicio: tabName = Get past week, leer filas. Encontrar el día cuyo texto de ejercicios contenga el ejercicio consultado. Devolver lo que haya en weights; si no hay, decir “No lo registraste”.
 
