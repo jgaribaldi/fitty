@@ -65,6 +65,14 @@
           "value": "={{ $('Start').item.json.tabName }}",
           "mode": "name"
         },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "day",
+              "lookupValue": "={{ $json.day }}"
+            }
+          ]
+        },
         "options": {}
       },
       "type": "n8n-nodes-base.googleSheets",
@@ -239,7 +247,7 @@
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "4ac4d8af-eb0d-4f1a-9812-e4310ac6a6ad",
+  "versionId": "1fe6f5b2-c66e-479c-9daa-6655e3b12892",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "35eeb1559ddbb34785d751ad6f811896d5950bf49657b92992f98b15437ded87"

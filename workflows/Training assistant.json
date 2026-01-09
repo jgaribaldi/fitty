@@ -57,8 +57,7 @@
     {
       "parameters": {
         "sessionIdType": "customKey",
-        "sessionKey": "={{ $today.format('yyyy-MM-dd')}}",
-        "contextWindowLength": 20
+        "sessionKey": "={{ $today.format('yyyy-MM-dd')}}"
       },
       "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
       "typeVersion": 1.3,
@@ -901,7 +900,7 @@
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "f1867c8b-3e81-49fe-82c8-7c64037ab08d",
+  "versionId": "bad264d2-c0ef-4af6-97e7-9eed2275b13d",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "35eeb1559ddbb34785d751ad6f811896d5950bf49657b92992f98b15437ded87"
