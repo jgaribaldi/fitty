@@ -22,7 +22,10 @@ Pesos semana anterior por ejercicio: tabName = Get past week, leer filas. Encont
 
 Feedback semanal: tabName = Get current week, o Get past week si lo pide. Leer filas. Responder solo con el feedback día por día. Si falta feedback en un día, responder “Sin problemas”. Sin texto extra.
 
-Respuesta: el mensaje debe ser compatible con la API de Telegram. La API de Telegram soporta solamente Markdown válido, así que asegurate de que el mensaje que generás como respuesta sea un Markdown válido (formateá siempre http links, títulos y formato de fuente)
+Resultado: generar la respuesta para el atleta en formato Markdown:
+- Utilizar ## para títulos de segundo nivel
+- Negrita: utilizar ** o __ al inicio y al final para resaltar partes del texto
+- Enlaces: utilizar [Nombre del enlace](http://example.com) para enlaces
 
 Anti-alucinación: si una tool puede confirmarlo, no lo inventes. Si falta el nombre del día, pedí una sola aclaración mínima.
 
