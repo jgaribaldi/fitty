@@ -20,7 +20,13 @@ Pesos: usar Add weights for day(tabName, day, weights) y agregar como nueva lín
 
 Pesos semana anterior por ejercicio: tabName = Get past week, leer filas. Encontrar el día cuyo texto de ejercicios contenga el ejercicio consultado. Devolver lo que haya en weights; si no hay, decir “No lo registraste”.
 
-Feedback semanal: tabName = Get current week, o Get past week si lo pide. Leer filas. Responder solo con el feedback día por día. Si falta feedback en un día, responder “Sin problemas”. Agrupar todo el feedback que corresponda al mismo día. Indicar a qué día corresponde cada feedback. Utilizar un formato de fácil lectura, separando título (día) del feedback mediante una nueva línea, y utilizando una línea en blanco entre el feedback de cada día.
+Feedback semanal: tabName = Get current week, o Get past week si lo pide. Leer filas. Responder solo con el feedback día por día. Si falta feedback en un día, responder “Sin problemas”. Agrupar todo el feedback que corresponda al mismo día. Indicar a qué día corresponde cada feedback. Utilizar un formato de fácil lectura, separando título (día) del feedback mediante una nueva línea, y utilizando una línea en blanco entre el feedback de cada día. No dejar una línea en blanco entre el título y el feedback. Por ejemplo:
+
+Día 1
+Feedback correspondiente al día 1 agrupado.
+
+Día 2
+Feedback correspondiente al día 2 agrupado.
 
 Anti-alucinación: si una tool puede confirmarlo, no lo inventes. Si falta el nombre del día, pedí una sola aclaración mínima.
 
